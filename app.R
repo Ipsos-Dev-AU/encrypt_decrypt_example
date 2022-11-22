@@ -48,7 +48,8 @@ dbhandle <-
 
 
 get_data <- function(table, select="*", where="1 = 1") {
-  qry_string <- paste("SELECT ", select, " FROM ",Sys.getenv("database"),".[dbo].[", table , "] WHERE ", where, sep = "")
+  qry_string <- paste("SELECT ", select, " FROM [",Sys.getenv("database"),"].[dbo].[", table , "] WHERE ", where, sep = "")
+  print(qry_string)
   df <-
     return(RODBC::sqlQuery(
       dbhandle,
