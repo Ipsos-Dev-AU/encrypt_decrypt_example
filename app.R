@@ -37,6 +37,8 @@ dbhandelstring <-
        ";uid=", Sys.getenv("uid"),
        ";pwd=", Sys.getenv("pwd")
   )
+
+print(dbhandelstring)
        
 dbhandle <-
   odbcDriverConnect(
