@@ -6,7 +6,7 @@ library(encryptr)
 library(RODBC)
 library(shinyjs)
 library(shinyalert)
-library(git2r)
+# library(git2r)
 # source(".Rprofile")
 
 repo <- "No repo defined yet"
