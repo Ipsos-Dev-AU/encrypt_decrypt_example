@@ -1,0 +1,7 @@
+Sys.setenv(driver = '{sqlserver}')
+Sys.setenv(server = '10.140.28.98')
+Sys.setenv(port = '1502')
+Sys.setenv(trusted_connection = 'true')
+Sys.setenv(uid = 'Shoaib.Shaikh')
+Sys.setenv(pwd = 'G(8f]Si8h#7L>V9m')
+Sys.setenv(database = 'CVS_Dim_UAT')
