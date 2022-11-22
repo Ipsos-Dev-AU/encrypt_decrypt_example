@@ -7,7 +7,7 @@ library(RODBC)
 library(shinyjs)
 library(shinyalert)
 library(git2r)
-source(".Rprofile")
+# source(".Rprofile")
 
 repo <- "No repo defined yet"
 repo <- git2r::repository_head(git2r::repository("."))$name
