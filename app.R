@@ -10,9 +10,9 @@ library(git2r)
 # source(".Rprofile")
 
 repo <- "No repo defined yet"
-repo <- git2r::repository_head(git2r::repository("."))$name
-print(repo)
-unloadNamespace("git2r")
+# repo <- git2r::repository_head(git2r::repository("."))$name
+# print(repo)
+# unloadNamespace("git2r")
 
 en <- function(x){
   x = as_tibble(x)
