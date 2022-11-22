@@ -10,8 +10,8 @@ library(git2r)
 source(".Rprofile")
 
 repo <- "No repo defined yet"
-# repo <- git2r::repository_head(git2r::repository("."))$name
-# print(repo)
+repo <- git2r::repository_head(git2r::repository("."))$name
+print(repo)
 unloadNamespace("git2r")
 
 en <- function(x){
@@ -87,7 +87,7 @@ add_record <-
 ui <- fluidPage(
   useShinyjs(),
   br(),
-  tags$h1("Encryption/Decryption with SQL back end"),
+  tags$h1("Encryption/Decryption with SQL back end - Testing New Feature"),
   tags$h6("This app demos how we could/should encrypt sensitive data at source and decrypt it only on user request an entry at a time."),
   hr(),
   tags$h6("Click on Add Record to add an entry to the table"),
