@@ -8,7 +8,7 @@ library(shinyjs)
 library(shinyalert)
 library(git2r)
 # source(".Rprofile")
-# print(Sys.getenv())
+print(Sys.getenv())
 
 repo <- read.table(
   "Current_Branch.txt"
