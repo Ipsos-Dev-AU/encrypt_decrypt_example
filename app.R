@@ -10,11 +10,19 @@ library(git2r)
 # source(".Rprofile")
 # print(Sys.getenv())
 
-repo <- "No repository defined yet"
-repo <- git2r::repository_head(git2r::repository("."))$name
-print(repo)
-unloadNamespace("git2r")
+repo <- read.table(
+  "Current_Branch.txt"
+)
+print(paste0("Repo: ",repo))
 
+if (Sys.getenv("CONNECT_SERVER") != "https://au-rconnect.ipsos.com/") {
+  print("You are in RWB")
+  repo <- git2r::repository_head(git2r::repository("."))$name
+  write.table(repo, "Current_Branch.txt", row.names = FALSE, col.names = FALSE)
+  print(paste0("Repo: ",repo))
+}
+
+unloadNamespace("git2r")
 
 en <- function(x){
   x = as_tibble(x)
@@ -47,8 +55,6 @@ dbhandle <-
     dbhandelstring
   )
   
-
-
 get_data <- function(table, select="*", where="1 = 1") {
   qry_string <- paste("SELECT ", select, " FROM [",Sys.getenv("database"),"].[dbo].[", table , "] WHERE ", where, sep = "")
   print(qry_string)
