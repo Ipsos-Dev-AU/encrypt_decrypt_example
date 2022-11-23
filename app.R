@@ -15,11 +15,21 @@ repo <- read.table(
 )
 print(paste0("Repo: ",repo))
 
+enviorment_type <- ""
+
 if (Sys.getenv("CONNECT_SERVER") != "https://au-rconnect.ipsos.com/") {
   print("You are in RWB")
+  enviorment_type <- "RWB"
   repo <- git2r::repository_head(git2r::repository("."))$name
   write.table(repo, "Current_Branch.txt", row.names = FALSE, col.names = FALSE)
   print(paste0("Re/Creating Current_Branch: ",repo))
+}else{
+  enviorment_type <- "Connect"
+}
+
+isUAT = FALSE
+if (enviorment_type == "Connect" & Sys.getenv("CONNECT_CONTENT_GUID") == Sys.getenv("UATappGUID")) {
+  isUAT = TRUE
 }
 
 repo <- read.table(
@@ -102,6 +112,8 @@ add_record <-
 
 ui <- fluidPage(
   useShinyjs(),
+  textOutput("inUAT"),
+  textOutput("inRWB"),
   br(),
   tags$h1("Encryption/Decryption with SQL back end - Bug Fix 1"),
   tags$h6("This app demos how we could/should encrypt sensitive data at source and decrypt it only on user request an entry at a time."),
@@ -141,12 +153,21 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session){
+  output$inUAT <-
+    if (isUAT) {
+      renderText("You are in UAT")
+    }
+  
+  output$inRWB <-
+    if (enviorment_type == "RWB") {
+      renderText("You are in RWB")
+    }
+  
   # print(session)
   reactive_val <-
     reactiveValues(
       df_all_records = NULL
     )
-  
   
   all_records <-
     get_data("TestPowerApps", select = "FirstName AS name_col, CAST(Bank AS varchar(8000)) AS bank_col")
