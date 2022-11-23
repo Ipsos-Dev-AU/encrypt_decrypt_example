@@ -7,7 +7,7 @@ library(RODBC)
 library(shinyjs)
 library(shinyalert)
 library(git2r)
-source(".Rprofile")
+# source(".Rprofile")
 # print(Sys.getenv())
 
 repo <- "No repository defined yet"
