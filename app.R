@@ -8,7 +8,7 @@ library(shinyjs)
 library(shinyalert)
 library(git2r)
 source(".Rprofile")
-print(Sys.getenv())
+# print(Sys.getenv())
 
 repo <- "No repository defined yet"
 repo <- git2r::repository_head(git2r::repository("."))$name
@@ -130,7 +130,7 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session){
-  print(session)
+  # print(session)
   reactive_val <-
     reactiveValues(
       df_all_records = NULL
