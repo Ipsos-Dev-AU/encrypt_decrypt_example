@@ -19,8 +19,13 @@ if (Sys.getenv("CONNECT_SERVER") != "https://au-rconnect.ipsos.com/") {
   print("You are in RWB")
   repo <- git2r::repository_head(git2r::repository("."))$name
   write.table(repo, "Current_Branch.txt", row.names = FALSE, col.names = FALSE)
-  print(paste0("Repo: ",repo))
+  print(paste0("Re/Creating Current_Branch: ",repo))
 }
+
+repo <- read.table(
+  "Current_Branch.txt"
+)
+print(paste0("Repo: ",repo))
 
 unloadNamespace("git2r")
 
