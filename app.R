@@ -6,13 +6,16 @@ library(encryptr)
 library(RODBC)
 library(shinyjs)
 library(shinyalert)
-library(git2r)
-source(".Rprofile")
+# library(git2r)
+# source(".Rprofile")
+# print(Sys.getenv())
 
 repo <- "No repo defined yet"
 # repo <- git2r::repository_head(git2r::repository("."))$name
 # print(repo)
-unloadNamespace("git2r")
+# unloadNamespace("git2r")
+
+
 
 en <- function(x){
   x = as_tibble(x)
@@ -37,6 +40,8 @@ dbhandelstring <-
        ";uid=", Sys.getenv("uid"),
        ";pwd=", Sys.getenv("pwd")
   )
+
+print(dbhandelstring)
        
 dbhandle <-
   odbcDriverConnect(
@@ -46,7 +51,8 @@ dbhandle <-
 
 
 get_data <- function(table, select="*", where="1 = 1") {
-  qry_string <- paste("SELECT ", select, " FROM [dbo].[", table , "] WHERE ", where, sep = "")
+  qry_string <- paste("SELECT ", select, " FROM [",Sys.getenv("database"),"].[dbo].[", table , "] WHERE ", where, sep = "")
+  print(qry_string)
   df <-
     return(RODBC::sqlQuery(
       dbhandle,
@@ -87,7 +93,7 @@ add_record <-
 ui <- fluidPage(
   useShinyjs(),
   br(),
-  tags$h1("Encryption/Decryption with SQL back end"),
+  tags$h1("Encryption/Decryption with SQL back end - Testing New Feature"),
   tags$h6("This app demos how we could/should encrypt sensitive data at source and decrypt it only on user request an entry at a time."),
   hr(),
   tags$h6("Click on Add Record to add an entry to the table"),
@@ -125,6 +131,7 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session){
+  print(session)
   reactive_val <-
     reactiveValues(
       df_all_records = NULL
