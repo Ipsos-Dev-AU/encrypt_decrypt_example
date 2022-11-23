@@ -8,12 +8,14 @@ library(shinyjs)
 library(shinyalert)
 # library(git2r)
 # source(".Rprofile")
-print(Sys.getenv())
+# print(Sys.getenv())
 
 repo <- "No repo defined yet"
 # repo <- git2r::repository_head(git2r::repository("."))$name
 # print(repo)
 # unloadNamespace("git2r")
+
+
 
 en <- function(x){
   x = as_tibble(x)
@@ -129,6 +131,7 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session){
+  print(session)
   reactive_val <-
     reactiveValues(
       df_all_records = NULL
