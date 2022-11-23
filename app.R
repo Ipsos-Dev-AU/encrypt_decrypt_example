@@ -103,7 +103,7 @@ add_record <-
 ui <- fluidPage(
   useShinyjs(),
   br(),
-  tags$h1("Encryption/Decryption with SQL back end - Testing New Feature"),
+  tags$h1("Encryption/Decryption with SQL back end - Testing Newer Feature"),
   tags$h6("This app demos how we could/should encrypt sensitive data at source and decrypt it only on user request an entry at a time."),
   hr(),
   tags$h6("Click on Add Record to add an entry to the table"),

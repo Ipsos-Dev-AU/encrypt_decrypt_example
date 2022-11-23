@@ -1,0 +1,13 @@
+name: encrypt_decrypt_example_prod
+title: encrypt_decrypt_example_Prod
+username: Shoaib.Shaikh
+account: Shoaib.Shaikh
+server: au-rconnect.ipsos.com
+hostUrl: https://au-rconnect.ipsos.com/__api__
+appId: 115
+bundleId: 422
+url: https://au-rconnect.ipsos.com/content/81fdd0a0-3afd-41f8-8736-d3d48ddc0a47/
+when: 1669171820.92036
+lastSyncTime: 1669171820.92038
+asMultiple: FALSE
+asStatic: FALSE
