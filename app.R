@@ -157,11 +157,10 @@ server <- function(input, output, session){
     if (isUAT) {
       renderText("You are in UAT")
       renderUI()
-    }
-  
-  output$enviorment <-
-    if (enviorment_type == "RWB") {
-      renderText("You are in RWB")
+    } else {
+      if (enviorment_type == "RWB") {
+        renderText("You are in RWB")
+      }
     }
   
   # print(session)
