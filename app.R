@@ -7,6 +7,7 @@ library(RODBC)
 library(shinyjs)
 library(shinyalert)
 library(git2r)
+library(shinyWidgets)
 # source(".Rprofile")
 print(Sys.getenv())
 
@@ -112,8 +113,7 @@ add_record <-
 
 ui <- fluidPage(
   useShinyjs(),
-  textOutput("inUAT"),
-  textOutput("inRWB"),
+  alert(status='warning', tags$b("Heads up!"),textOutput("enviorment")),
   br(),
   tags$h1("Encryption/Decryption with SQL back end - Bug Fix 1"),
   tags$h6("This app demos how we could/should encrypt sensitive data at source and decrypt it only on user request an entry at a time."),
@@ -153,12 +153,13 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session){
-  output$inUAT <-
+  output$enviorment <-
     if (isUAT) {
       renderText("You are in UAT")
+      renderUI()
     }
   
-  output$inRWB <-
+  output$enviorment <-
     if (enviorment_type == "RWB") {
       renderText("You are in RWB")
     }
