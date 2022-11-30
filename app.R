@@ -8,6 +8,7 @@ library(shinyjs)
 library(shinyalert)
 library(git2r)
 library(shinyWidgets)
+library(rintrojs)
 # source(".Rprofile")
 print(Sys.getenv())
 
@@ -113,8 +114,10 @@ add_record <-
 
 ui <- fluidPage(
   useShinyjs(),
+  introjsUI(),
   alert(status='warning', tags$b("Heads up!"),textOutput("enviorment")),
   br(),
+  actionButton("helpButton", "Help ?", class = "btn-primary"),
   tags$h1("Encryption/Decryption with SQL back end - Bug Fix 1"),
   tags$h6("This app demos how we could/should encrypt sensitive data at source and decrypt it only on user request an entry at a time."),
   hr(),
@@ -122,19 +125,55 @@ ui <- fluidPage(
   tags$h6("Click on a row to show the decrypted 'bank_col'"),
   tags$h6("The decrypted value is displayed only for a few seconds"),
   tags$h6("All data in bank_col at source is stored with encryption and is decrypted at destination for only the row selected"),
-  tags$h6("All encription/decryption is done using a unique SSH key which is stored on the server where the app is hosted. In this apps case, the data is on PASQL01 server and the SSH key is on the Connect Server"),
+  tags$h6("All encription/decryption is done using a unique SSH key which is stored on the server where the app is hosted. In this apps case, the data is on PASQL01 server and the SSH key is on the Connect Server")
+    
+  ,
   
   # Showing reactive table of all records
-  DT::DTOutput("allrecords"),
+  introBox(
+    DT::DTOutput("allrecords"),
+    data.step = 1,
+    data.intro = "This is a button",
+    data.hint = "You can press me"
+    ),
   
   # Button to allow user to add a new record
-  actionButton("add_record_bttn", "Add Record", class = "btn-primary"),
+  introBox(
+    actionButton("add_record_bttn", "Add Record", class = "btn-primary"),
+    data.step = 2,
+    data.intro = "This is a button",
+    data.hint = "You can press me"
+  ),
   hr(),
-  
-  # Form for the user to fill to save new or update existing
-  uiOutput("name"),
-  uiOutput("bank"),
-  uiOutput("save"),
+  fluidRow(
+    column(
+      width = 11,
+      # Form for the user to fill to save new or update existing
+      introBox(
+        uiOutput("name"),
+        data.step = 3,
+        data.intro = "This is a button",
+        data.hint = "You can press me"
+      ),
+      introBox(
+        uiOutput("bank"),
+        data.step = 4,
+        data.intro = "This is a button",
+        data.hint = "You can press me"
+      ),
+      introBox(
+        uiOutput("save"),
+        data.step = 5,
+        data.intro = "This is a button",
+        data.hint = "You can press me"
+      ),  
+    ),
+    column(
+      width = 1,
+      uiOutput("helpButton2"),
+    )
+    
+  ),
   tags$footer(
     HTML(paste0(
       "<!-- Footer -->
@@ -183,6 +222,8 @@ server <- function(input, output, session){
   # Showing form when add button is clicked
   observeEvent(input$add_record_bttn, {
     
+    output$helpButton2 <-
+      renderUI(actionButton("helpButton2", "?", class = "btn-info"))
     output$name <-
       renderUI(textInput("nameGiven", "Enter Name:"))
     output$bank <-
@@ -219,6 +260,35 @@ server <- function(input, output, session){
     )
     shinyjs::reset("name")
     shinyjs::reset("bank")
+  })
+  
+  steps1 <- reactive(data.frame(
+    element=c("#allrecords", "#add_record_bttn"),
+    intro=c("These are all the records", "This button adds data"),
+    position=c("bottom", "right")
+  ))
+  
+  steps2 <- reactive(data.frame(
+    element=c("#name", "#bank", '#save'),
+    intro=c("Enter name here", "Enter Bank details to be encrypted", "Click to save encrypted data"),
+    position=c("bottom", "right", "top")
+    
+  ))
+  
+  observeEvent(input$helpButton, {
+    introjs(session, options = list(steps = steps1()))
+  })
+  
+  observeEvent(input$helpButton2, {
+    introjs(
+      session,
+      options = list(
+        steps = steps2(),
+        "nextLabel" = "FWD",
+        "prevLabel" = "PRV",
+        "skipLabel" = "SKP"
+      )
+    )
   })
 }
 
