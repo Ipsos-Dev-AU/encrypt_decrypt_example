@@ -5,9 +5,9 @@ account: Shoaib.Shaikh
 server: au-rconnect.ipsos.com
 hostUrl: https://au-rconnect.ipsos.com/__api__
 appId: 113
-bundleId: 504
+bundleId: 506
 url: https://au-rconnect.ipsos.com/content/fae3de59-87a7-4235-b914-c922add9bc29/
-when: 1669793323.20381
-lastSyncTime: 1669793323.20383
+when: 1669793609.54558
+lastSyncTime: 1669793609.54559
 asMultiple: FALSE
 asStatic: FALSE
